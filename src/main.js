@@ -30,7 +30,7 @@ export default class Crumbs extends Component {
 
   renderScene(route, navigator) {
     const Component = ROUTES[route.name];
-    return <Component route={route} navigator={navigator} />;
+    return <Component route={route} navigator={navigator} />; 
   }
 
   render() {
