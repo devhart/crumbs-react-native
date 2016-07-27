@@ -43,7 +43,6 @@ export default class Crumbs extends Component {
       />
     );
   }
-
 }
 
 const styles = StyleSheet.create({
