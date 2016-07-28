@@ -12,10 +12,9 @@ import {
 const PULLDOWN_DISTANCE = 40;
 
 export default class Chatroom extends Component {
-  getInitialState() {
-    // Match to server listener
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    
+  constructor(props) {
+
+    super(props);
 
     this.state = {
       messages: null,
@@ -23,16 +22,15 @@ export default class Chatroom extends Component {
       demoMode: true,
       userLoggedIn: false,
     }
-    
-    this.socket.on('connect', () => {
-      this.socket.emit('getChats');
-    })
 
+    props.socket.on('test from server', () => console.log('xxxx client received server test'));
+    console.log('props are:', props);
   }
 
-  componentWillMount() {
-    this.getChannelList(1);
-  }
+
+  // componentWillMount() {
+  //   this.getChannelList(1);
+  // }
 
   // onChatroomPress(url) {
   //   console.log(url);
@@ -48,8 +46,8 @@ export default class Chatroom extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Chatroom!</Text>
-        <Text>{this.state.}
+        <Text>Chatroom Take 2</Text>
+        <Text>{this.state.location}</Text>
       </View>
     );
   }

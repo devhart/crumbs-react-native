@@ -30,17 +30,14 @@ export default class Crumbs extends Component {
   constructor(props) {
     super(props);
     this.socket = io('http://localhost:3000', ioConfig);
-    this.socket.on('connection', () =>
-      console.log('client connected');
-      this.socket.emit('goClient', () =>
-        console.log('emitted from the client');
-      )
-    )
+
+    this.socket.emit('test from client');
   }
 
   renderScene(route, navigator) {
     const Component = ROUTES[route.name];
-    return <Component route={route} navigator={navigator} />; 
+    // this.socket is bound to the Crumbs scope when renderScene is set in the Navigator
+    return <Component route={route} navigator={navigator} socket={this.socket} />; 
   }
 
   render() {
@@ -48,7 +45,7 @@ export default class Crumbs extends Component {
       <Navigator
         style={ styles.container }
         initialRoute={{name: defaultRoute}}
-        renderScene={this.renderScene}
+        renderScene={this.renderScene.bind(this)}
         configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; } }
       />
     );
