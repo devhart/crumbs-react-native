@@ -21,10 +21,10 @@ import Chatroom from './chat/chatroom';
 const ROUTES = {
   login: Login,
   map: Map,
-  chatroom: Chatroom
-}
+  chatroom: Chatroom,
+};
 
-const defaultRoute = 'chatroom'; // adjust for testing
+const defaultRoute = 'map'; // adjust for testing
 
 export default class Crumbs extends Component {
   constructor(props) {
