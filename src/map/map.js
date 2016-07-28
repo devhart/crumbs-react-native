@@ -4,6 +4,7 @@ import {
   StyleSheet,
   MapView,
   TouchableHighlight,
+  Text,
 } from 'react-native';
 
 /* eslint-disable no-console */
@@ -34,6 +35,7 @@ export default class Map extends Component {
     this.state = {
       currentChatRoomId: '',
       lastPosition: {},
+      chatRoomExists: true,
     };
   }
 
@@ -97,6 +99,5 @@ export default class Map extends Component {
 }
 
 Map.propTypes = {
-  title: PropTypes.string.isRequired,
   navigator: PropTypes.object.isRequired,
 };

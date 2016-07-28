@@ -37,6 +37,7 @@ export default class Crumbs extends Component {
     super(props);
     this.socket = io('http://localhost:3000', ioConfig);
     this.socket.emit('test from client');
+    this.renderScene = this.renderScene.bind(this);
   }
 
   renderScene(route, navigator) {
@@ -49,7 +50,7 @@ export default class Crumbs extends Component {
       <Navigator
         style={styles.container}
         initialRoute={{ name: defaultRoute }}
-        renderScene={() => this.renderScene()}
+        renderScene={this.renderScene}
         configureScene={() => Navigator.SceneConfigs.FloatFromRight}
       />
     );
