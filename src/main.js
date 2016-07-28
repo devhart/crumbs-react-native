@@ -25,6 +25,7 @@ const ROUTES = {
   login: Login,
   map: Map,
   chatroom: Chatroom,
+<<<<<<< 99c6c65e5f866749b10033cb663716fca8765b02
   signup: Signup
 };
 
@@ -37,6 +38,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 });
+=======
+};
+
+const defaultRoute = 'map'; // adjust for testing
+>>>>>>> Adds Geolocation api
 
 export default class Crumbs extends Component {
   constructor(props) {

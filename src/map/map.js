@@ -39,20 +39,27 @@ export default class Map extends Component {
     };
   }
 
+  state = {
+    // this gets set by some parent view's location-chatRoom status
+    currentChatRoomId: '',
+    lastPosition: {}
+  }
+
   componentDidMount() {
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      const coordStr = this.createChatRoomId(position.coords);
-      if (coordStr !== this.state.lastPosition) {
+      var coordStr = this.createChatRoomId(position.coords);
+      if (coordStr !== this.state.lastPosition ) {
+        console.log('moved to a new chatRoom at', coordStr)
         this.setState({
-          lastPosition: coordStr,
+          lastPosition: coordStr
         });
       }
-    }, { enableHighAccuracy: true });
+    }, {enableHighAccuracy: true});
   }
 
   createChatRoomId(coordObj) {
-    const latStr = (Math.trunc(coordObj.latitude * 1000) / 1000).toFixed(3).toString();
-    const lngStr = (Math.trunc(coordObj.longitude * 1000) / 1000).toFixed(3).toString();
+    var latStr = (Math.trunc(coordObj.latitude * 1000)/1000).toFixed(3).toString();
+    var lngStr = (Math.trunc(coordObj.longitude * 1000)/1000).toFixed(3).toString();
     return latStr + lngStr;
   }
 
