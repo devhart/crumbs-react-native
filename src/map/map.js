@@ -28,12 +28,12 @@ export default class Map extends Component {
   enterExistingChatRoom() {
     this.props.navigator.push({
       name: 'chatroom'
-    })
+    });
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={ styles.container }>
         <MapView
           style={ styles.map }
           showsUserLocation={true}
