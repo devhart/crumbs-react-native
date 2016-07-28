@@ -10,6 +10,7 @@ import {
   StyleSheet
 } from 'react-native';
 
+const windowSize = Dimensions.get('window');
 const PULLDOWN_DISTANCE = 40;
 
 export default class Chatroom extends Component {
@@ -39,8 +40,8 @@ export default class Chatroom extends Component {
 
   handleSubmit() {
     // ADD MESSAGE TO CHAT ROOM
-    props.socket.emit('addMessage', this.message);
-    console.log('addMessage:', this.message);
+    this.props.socket.emit('addMessageToChatRoom', this.state.message);
+    console.log('addMessageToChatRoom:', this.state.message);
 
     this.setState({
       message: '',
@@ -63,28 +64,30 @@ export default class Chatroom extends Component {
       <View style={styles.container}>
         <View style={styles.topContainer}>
           <TouchableHighlight
-            underlayColor={'blue'}
+            underlayColor={'#dcf4ff'}
             onPress={this.onBackPress}
+            style={{marginLeft: 15}}
           >
-          <Text>Back</Text>
+          <Text style={{color: 'black'}}>&lt; Back</Text>
           </TouchableHighlight>
         </View>
         <View>
-          <Text>CHAT</Text>
+          <Text style={{color: '#fff'}}>CHAT</Text>
         </View>
-        <View>
-          <View style={styles.inputContainer}>
+        <View style={styles.inputContainer}>
+          <View style={styles.textContainer}>
             <TextInput
+              style={styles.input}
               value={this.message}
-              onChangeText={(text) => this.handleInputChange(text)}
+              onChangeText={(text) => this.setState({message: text})}
               />
           </View>
-          <View> 
+          <View style={styles.sendContainer}> 
             <TouchableHighlight
               underlayColor={'red'}
-              onPress={() => this.onSendPress()}
+              onPress={() => this.handleSubmit()}
               >
-              <Text>SEND</Text>
+              <Text style={styles.sendLabel}>SEND</Text>
             </TouchableHighlight>
           </View> 
         </View>
@@ -106,16 +109,46 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    paddingTop: 20,
+    backgroundColor: '#c2edff',
+    paddingTop: 1,
+  },
+  chatContainer: {
+    flex: 11,
+    justifyContent: 'center',
+    alignItems: 'stretch'
   },
   inputContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: 'blue'
-  }
+    backgroundColor: '#a9e5ff'
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  sendContainer: {
+    justifyContent: 'flex-end',
+    paddingRight: 10
+  },
+  sendLabel: {
+    color: '#ffffff',
+    fontSize: 15
+  },
+  input: {
+    width: windowSize.width - 70,
+    color: '#555555',
+    paddingRight: 10,
+    paddingLeft: 10,
+    paddingTop: 5,
+    height: 32,
+    borderColor: '#6E5BAA',
+    borderWidth: 1,
+    borderRadius: 2,
+    alignSelf: 'center',
+    backgroundColor: '#ffffff'
+  },
 
 });
 
