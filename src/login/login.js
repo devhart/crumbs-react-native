@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 export default class Login extends Component {
-
   constructor() {
     super();
     this.state = {username: ''};
@@ -17,9 +16,9 @@ export default class Login extends Component {
 
   render() {
     return (
-      <View style = {styles.container}>
+      <View style={styles.container}>
         <View style={styles.loginContainer}>
-                  <Text style= {fontSize =60, fontColor= 'orange'}> Crumbs </Text>
+                  <Text style={fontSize=60, fontColor='orange'}> Crumbs </Text>
                   <TextInput
                     style={styles.input}
                     value={this.state.username}
@@ -89,9 +88,3 @@ const styles = StyleSheet.create({
       color: '#ffffff'
   }
 });
-
- // <View style={styles.container}>
-      //  <Text style={{backgroundColor: 'orange', color: 'black', fontSize: 40}}>Crumbs</Text> 
-      //  <Text style={{backgroundColor: 'orange', color: 'black', fontSize: 40}}>Login</Text> 
-      //  <TextInput type= "TextInput" name= "username" style={{ backgroundColor: 'blue', height: 60 }} value={'Username'}/>
-      //  <TextInput type= "TextInput" name= "password" style={{ backgroundColor: 'blue', height: 60 }} value={'Password'}/> 
