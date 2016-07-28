@@ -16,16 +16,26 @@ const ioConfig = {
 
 import Login from './login/login';
 import Map from './map/map';
+import Chatroom from './chat/chatroom';
 
 const ROUTES = {
   login: Login,
   map: Map,
+  chatroom: Chatroom
 }
+
+const defaultRoute = 'chatroom'; // adjust for testing
 
 export default class Crumbs extends Component {
   constructor(props) {
     super(props);
     this.socket = io('http://localhost:3000', ioConfig);
+    this.socket.on('connection', () =>
+      console.log('client connected');
+      this.socket.emit('goClient', () =>
+        console.log('emitted from the client');
+      )
+    )
   }
 
   renderScene(route, navigator) {
@@ -37,7 +47,7 @@ export default class Crumbs extends Component {
     return (
       <Navigator
         style={ styles.container }
-        initialRoute={{name: 'map'}}
+        initialRoute={{name: defaultRoute}}
         renderScene={this.renderScene}
         configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; } }
       />
