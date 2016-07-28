@@ -70,11 +70,15 @@ export default class Crumbs extends Component {
       <Navigator
         style={styles.container}
         initialRoute={{ name: defaultRoute }}
+<<<<<<< b1641131502237c108a0f5eb9c89255a6ac64e7e
 <<<<<<< 6fccdab927eaedbddd32399aa0a25a2a08a172d1
         renderScene={this.renderScene}
 =======
         renderScene={() => this.renderScene()}
 >>>>>>> Fix linting errors
+=======
+        renderScene={this.renderScene}
+>>>>>>> fix binding bug
         configureScene={() => Navigator.SceneConfigs.FloatFromRight}
       />
     );

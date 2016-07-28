@@ -4,10 +4,7 @@ import {
   StyleSheet,
   MapView,
   TouchableHighlight,
-<<<<<<< 6fccdab927eaedbddd32399aa0a25a2a08a172d1
   Text,
-=======
->>>>>>> Fix linting errors
 } from 'react-native';
 
 /* eslint-disable no-console */
@@ -38,6 +35,7 @@ export default class Map extends Component {
     this.state = {
       currentChatRoomId: '',
       lastPosition: {},
+      chatRoomExists: true,
     };
   }
 
@@ -101,9 +99,12 @@ export default class Map extends Component {
 }
 
 Map.propTypes = {
+<<<<<<< b1641131502237c108a0f5eb9c89255a6ac64e7e
 <<<<<<< 6fccdab927eaedbddd32399aa0a25a2a08a172d1
 =======
   title: PropTypes.string.isRequired,
 >>>>>>> Fix linting errors
+=======
+>>>>>>> fix binding bug
   navigator: PropTypes.object.isRequired,
 };
