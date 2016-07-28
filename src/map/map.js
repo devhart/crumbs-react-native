@@ -7,20 +7,43 @@ import {
   Text
 } from 'react-native';
 
-export default class Login extends Component {
+export default class Map extends Component {
+  state = {
+    chatRoomExists: false,
+  }
+
+  createNewChatRoom() {
+    console.log('creating new chat room...')
+  }
+
+  enterExistingChatRoom() {
+    console.log('enter existing chat room...')
+    // this.props.navigator.push({
+    //   name: 'chat'
+    // })
+  }
+
   render() {
     return (
-      <View style={styles.container}>
+      <View style={ styles.container }>
         <MapView
-          style={styles.map}
+          style={ styles.map }
           showsUserLocation={true}
           followUserLocation={true}
         />
-        <TouchableHighlight
-          style={ styles.button }
-          onPress={ () => console.log('Navigate to the chat room') }>
-          <Text style={ styles.buttonText }>Enter Chat Room</Text>
-        </TouchableHighlight>
+        {
+          this.state.chatRoomExists ?
+            <TouchableHighlight
+              style={ styles.button }
+              onPress={this.enterExistingChatRoom}>
+              <Text style={ styles.buttonText }>Enter Chat Room</Text>
+            </TouchableHighlight> :
+            <TouchableHighlight
+              style={ styles.button }
+              onPress={ this.createNewChatRoom }>
+              <Text style={ styles.buttonText }>Create Chat Room</Text>
+            </TouchableHighlight>
+        }
       </View>
     );
   }
