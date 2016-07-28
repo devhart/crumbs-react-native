@@ -20,6 +20,7 @@ export default class Chatroom extends Component {
 
     this.state = {
       message: null,
+      messageList: [],
       location: '37.7837-122.4090',
       demoMode: true,
       userLoggedIn: false,
@@ -28,19 +29,24 @@ export default class Chatroom extends Component {
   }
 
   componentWillMount() {
-    this.handleInputChange = this.handleInputChange.bind(this);
     this.onSendPress = this.onSendPress.bind(this);
+    this.onGetChat = this.onGetChat.bind(this)
   }
 
-  handleInputChange(text) {
-    this.setState({
-      message: text,
-    });
+  onGetChat() {
+    this.props.socket.on('updateMessagesState', updatedChatRoom => {
+      console.log('messages received:', updatedChatRoom);
+      this.setState({ messageList: updatedChatRoom });
+    })
   }
 
   onSendPress() {
-    // ADD MESSAGE TO CHAT ROOM
-    this.props.socket.emit('addMessageToChatRoom', this.state.message);
+    this.props.socket.emit('addMessageToChatRoom', { 
+        location: this.state.location,
+        message: this.state.message,
+        username: null // TODO: Add Username
+      });
+
     console.log('addMessageToChatRoom:', this.state.message);
 
     this.setState({
@@ -99,7 +105,6 @@ var styles = StyleSheet.create({
     backgroundColor: '#ffffff'
   },
   topContainer: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -145,3 +150,58 @@ var styles = StyleSheet.create({
   },
 
 });
+
+/*var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    backgroundColor: '#ffffff'
+  },
+  topContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#c2edff',
+    paddingTop: 1,
+  },
+  chatContainer: {
+    flex: 11,
+    justifyContent: 'center',
+    alignItems: 'stretch'
+  },
+  inputContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#a9e5ff'
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  sendContainer: {
+    justifyContent: 'flex-end',
+    paddingRight: 10
+  },
+  sendLabel: {
+    color: '#ffffff',
+    fontSize: 15
+  },
+  input: {
+    width: windowSize.width - 70,
+    color: '#555555',
+    paddingRight: 10,
+    paddingLeft: 10,
+    paddingTop: 5,
+    height: 32,
+    borderColor: '#6E5BAA',
+    borderWidth: 1,
+    borderRadius: 2,
+    alignSelf: 'center',
+    backgroundColor: '#ffffff'
+  },
+
+});*/
