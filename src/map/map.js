@@ -1,43 +1,61 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   View,
   StyleSheet,
   MapView,
   TouchableHighlight,
-  Text
 } from 'react-native';
+
+/* eslint-disable no-console */
+const log = msg => console.log(msg);
+/* eslint-enable no-console */
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  map: {
+    flex: 1,
+  },
+  button: {
+    height: 60,
+    justifyContent: 'center',
+    backgroundColor: '#efefef',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 20,
+  },
+});
 
 export default class Map extends Component {
   constructor(props) {
     super(props);
-  }
-
-  state = {
-    // this gets set by some parent view's location-chatRoom status
-    currentChatRoomId: '',
-    lastPosition: {}
+    this.state = {
+      currentChatRoomId: '',
+      lastPosition: {},
+    };
   }
 
   componentDidMount() {
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      var coordStr = this.createChatRoomId(position.coords);
-      if (coordStr !== this.state.lastPosition ) {
-        console.log('moved to a new chatRoom at', coordStr)
+      const coordStr = this.createChatRoomId(position.coords);
+      if (coordStr !== this.state.lastPosition) {
         this.setState({
-          lastPosition: coordStr
+          lastPosition: coordStr,
         });
       }
-    }, {enableHighAccuracy: true});
+    }, { enableHighAccuracy: true });
   }
 
   createChatRoomId(coordObj) {
-    var latStr = (Math.trunc(coordObj.latitude * 1000)/1000).toFixed(3).toString();
-    var lngStr = (Math.trunc(coordObj.longitude * 1000)/1000).toFixed(3).toString();
+    const latStr = (Math.trunc(coordObj.latitude * 1000) / 1000).toFixed(3).toString();
+    const lngStr = (Math.trunc(coordObj.longitude * 1000) / 1000).toFixed(3).toString();
     return latStr + lngStr;
   }
 
   createNewChatRoom() {
-    console.log('creating new chat room...')
+    log('creating new chat room...');
     // do some stuff to create a room socket
     // this.props.navigator.push({
     //   name: 'chat'
@@ -46,29 +64,31 @@ export default class Map extends Component {
 
   enterExistingChatRoom() {
     this.props.navigator.push({
-      name: 'chatroom'
+      name: 'chatroom',
     });
   }
 
   render() {
     return (
-      <View style={ styles.container }>
+      <View style={styles.container}>
         <MapView
-          style={ styles.map }
-          showsUserLocation={true}
-          followUserLocation={true}
+          style={styles.map}
+          showsUserLocation
+          followUserLocation
         />
         {
           this.state.chatRoomExists ?
             <TouchableHighlight
-              style={ styles.button }
-              onPress={() => this.enterExistingChatRoom()}>
-              <Text style={ styles.buttonText }>Enter Chat Room</Text>
+              style={styles.button}
+              onPress={() => this.enterExistingChatRoom()}
+            >
+              <Text style={styles.buttonText}>Enter Chat Room</Text>
             </TouchableHighlight> :
             <TouchableHighlight
-              style={ styles.button }
-              onPress={ this.createNewChatRoom }>
-              <Text style={ styles.buttonText }>Create Chat Room</Text>
+              style={styles.button}
+              onPress={() => this.createNewChatRoom()}
+            >
+              <Text style={styles.buttonText}>Create Chat Room</Text>
             </TouchableHighlight>
         }
       </View>
@@ -76,21 +96,7 @@ export default class Map extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  map: {
-    flex: 1
-  },
-  button: {
-  	height:60,
-    justifyContent: 'center',
-    backgroundColor: '#efefef',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  buttonText: {
-  	fontSize:20
-  }
-});
+Map.propTypes = {
+  title: PropTypes.string.isRequired,
+  navigator: PropTypes.object.isRequired,
+};

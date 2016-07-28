@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
-  View,
-  Navigator
+  Navigator,
 } from 'react-native';
 
 window.navigator.userAgent = 'react-native';
@@ -26,6 +24,14 @@ const ROUTES = {
 
 const defaultRoute = 'map'; // adjust for testing
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+});
+
 export default class Crumbs extends Component {
   constructor(props) {
     super(props);
@@ -34,26 +40,18 @@ export default class Crumbs extends Component {
   }
 
   renderScene(route, navigator) {
-    const Component = ROUTES[route.name];
-    return <Component route={route} navigator={navigator} socket={this.socket} />;
+    const Cponent = ROUTES[route.name];
+    return <Cponent route={route} navigator={navigator} socket={this.socket} />;
   }
 
   render() {
     return (
       <Navigator
-        style={ styles.container }
-        initialRoute={{name: defaultRoute}}
-        renderScene={this.renderScene.bind(this)}
-        configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; } }
+        style={styles.container}
+        initialRoute={{ name: defaultRoute }}
+        renderScene={() => this.renderScene()}
+        configureScene={() => Navigator.SceneConfigs.FloatFromRight}
       />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-});
