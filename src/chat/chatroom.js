@@ -29,7 +29,7 @@ export default class Chatroom extends Component {
 
   componentWillMount() {
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onSendPress = this.onSendPress.bind(this);
   }
 
   handleInputChange(text) {
@@ -38,7 +38,7 @@ export default class Chatroom extends Component {
     });
   }
 
-  handleSubmit() {
+  onSendPress() {
     // ADD MESSAGE TO CHAT ROOM
     this.props.socket.emit('addMessageToChatRoom', this.state.message);
     console.log('addMessageToChatRoom:', this.state.message);
@@ -51,12 +51,6 @@ export default class Chatroom extends Component {
 
   onBackPress() {
     console.log('navigate back a page');
-  }
-
-// DUPLICATES HANDLE SUBMIT
-  onSendPress() {
-    console.log(this.state.message);
-    this.setState({message: ''});
   }
 
   render() {
@@ -85,7 +79,7 @@ export default class Chatroom extends Component {
           <View style={styles.sendContainer}> 
             <TouchableHighlight
               underlayColor={'red'}
-              onPress={() => this.handleSubmit()}
+              onPress={() => this.onSendPress()}
               >
               <Text style={styles.sendLabel}>SEND</Text>
             </TouchableHighlight>
@@ -151,9 +145,3 @@ var styles = StyleSheet.create({
   },
 
 });
-
-
-      // <View style={styles.container}>
-      //   <Text>Chatroom Take 2</Text>
-      //   <Text>{this.state.location}</Text>
-      // </View>
