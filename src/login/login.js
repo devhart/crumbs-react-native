@@ -9,17 +9,16 @@ import {
 } from 'react-native';
 
 export default class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {username: ''};
-
   }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.loginContainer}>
-                  <Image source={require("/Users/jamesramadan/Documents/Hack Reactor/Projects/Legacy/crumbs_React_Native/crumbs-react-native/cookie.jpg")} />
+                  <Image source={require("./cookie.jpg")} />
                   <Text style={styles.header}> Crumbs </Text>
                   <TextInput
                     style={styles.input}
@@ -32,17 +31,16 @@ export default class Login extends Component {
                  <TouchableHighlight
                     style={styles.button}
                     underlayColor={'#328FE6'}
-                    onPress={this.onPress}
+                    onPress={this.onPress.bind(this)}
                     >
                     <Text style={styles.label}>LOGIN</Text>
                 </TouchableHighlight>
         </View>
-       
       </View>
     );
   }
 
-  onPress () {
+  onPress() {
     console.log(this.state.username);
   }
 }
