@@ -4,7 +4,8 @@ import {
   View,
   StyleSheet,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } from 'react-native';
 
 export default class Login extends Component {
@@ -18,7 +19,8 @@ export default class Login extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.loginContainer}>
-                  <Text style={fontSize=60, fontColor='orange'}> Crumbs </Text>
+                  <Image source={require("/Users/jamesramadan/Documents/Hack Reactor/Projects/Legacy/crumbs_React_Native/crumbs-react-native/cookie.jpg")} />
+                  <Text style={styles.header}> Crumbs </Text>
                   <TextInput
                     style={styles.input}
                     value={this.state.username}
@@ -56,6 +58,10 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+  },
+  header: {
+    fontSize: 60,
+    color: 'orange'
   },
   input: {
       width: 250,
