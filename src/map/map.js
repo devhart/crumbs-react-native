@@ -8,19 +8,27 @@ import {
 } from 'react-native';
 
 export default class Map extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {
-    chatRoomExists: false,
+    // this gets set by some parent view's location-chatRoom status
+    chatRoomExists: true,
   }
 
   createNewChatRoom() {
     console.log('creating new chat room...')
-  }
-
-  enterExistingChatRoom() {
-    console.log('enter existing chat room...')
+    // do some stuff to create a room socket
     // this.props.navigator.push({
     //   name: 'chat'
     // })
+  }
+
+  enterExistingChatRoom() {
+    this.props.navigator.push({
+      name: 'chatroom'
+    })
   }
 
   render() {
@@ -35,7 +43,7 @@ export default class Map extends Component {
           this.state.chatRoomExists ?
             <TouchableHighlight
               style={ styles.button }
-              onPress={this.enterExistingChatRoom}>
+              onPress={() => this.enterExistingChatRoom()}>
               <Text style={ styles.buttonText }>Enter Chat Room</Text>
             </TouchableHighlight> :
             <TouchableHighlight
