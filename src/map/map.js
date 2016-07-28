@@ -4,7 +4,10 @@ import {
   StyleSheet,
   MapView,
   TouchableHighlight,
+<<<<<<< 6fccdab927eaedbddd32399aa0a25a2a08a172d1
   Text,
+=======
+>>>>>>> Fix linting errors
 } from 'react-native';
 
 /* eslint-disable no-console */
@@ -35,31 +38,23 @@ export default class Map extends Component {
     this.state = {
       currentChatRoomId: '',
       lastPosition: {},
-      chatRoomExists: true,
     };
-  }
-
-  state = {
-    // this gets set by some parent view's location-chatRoom status
-    currentChatRoomId: '',
-    lastPosition: {}
   }
 
   componentDidMount() {
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      var coordStr = this.createChatRoomId(position.coords);
-      if (coordStr !== this.state.lastPosition ) {
-        console.log('moved to a new chatRoom at', coordStr)
+      const coordStr = this.createChatRoomId(position.coords);
+      if (coordStr !== this.state.lastPosition) {
         this.setState({
-          lastPosition: coordStr
+          lastPosition: coordStr,
         });
       }
-    }, {enableHighAccuracy: true});
+    }, { enableHighAccuracy: true });
   }
 
   createChatRoomId(coordObj) {
-    var latStr = (Math.trunc(coordObj.latitude * 1000)/1000).toFixed(3).toString();
-    var lngStr = (Math.trunc(coordObj.longitude * 1000)/1000).toFixed(3).toString();
+    const latStr = (Math.trunc(coordObj.latitude * 1000) / 1000).toFixed(3).toString();
+    const lngStr = (Math.trunc(coordObj.longitude * 1000) / 1000).toFixed(3).toString();
     return latStr + lngStr;
   }
 
@@ -79,7 +74,7 @@ export default class Map extends Component {
 
   render() {
     return (
-      <View style={ styles.container }>
+      <View style={styles.container}>
         <MapView
           style={styles.map}
           showsUserLocation
@@ -106,5 +101,9 @@ export default class Map extends Component {
 }
 
 Map.propTypes = {
+<<<<<<< 6fccdab927eaedbddd32399aa0a25a2a08a172d1
+=======
+  title: PropTypes.string.isRequired,
+>>>>>>> Fix linting errors
   navigator: PropTypes.object.isRequired,
 };

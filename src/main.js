@@ -44,6 +44,14 @@ const styles = StyleSheet.create({
 const defaultRoute = 'map'; // adjust for testing
 >>>>>>> Adds Geolocation api
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+});
+
 export default class Crumbs extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +70,11 @@ export default class Crumbs extends Component {
       <Navigator
         style={styles.container}
         initialRoute={{ name: defaultRoute }}
+<<<<<<< 6fccdab927eaedbddd32399aa0a25a2a08a172d1
         renderScene={this.renderScene}
+=======
+        renderScene={() => this.renderScene()}
+>>>>>>> Fix linting errors
         configureScene={() => Navigator.SceneConfigs.FloatFromRight}
       />
     );
