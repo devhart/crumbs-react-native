@@ -1,7 +1,3 @@
-
-
-
-
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -25,24 +21,10 @@ const ROUTES = {
   login: Login,
   map: Map,
   chatroom: Chatroom,
-<<<<<<< 99c6c65e5f866749b10033cb663716fca8765b02
-  signup: Signup
-};
-
-const defaultRoute = 'login'; // adjust for testing
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-});
-=======
+  signup: Signup,
 };
 
 const defaultRoute = 'map'; // adjust for testing
->>>>>>> Adds Geolocation api
 
 const styles = StyleSheet.create({
   container: {
@@ -70,15 +52,7 @@ export default class Crumbs extends Component {
       <Navigator
         style={styles.container}
         initialRoute={{ name: defaultRoute }}
-<<<<<<< b1641131502237c108a0f5eb9c89255a6ac64e7e
-<<<<<<< 6fccdab927eaedbddd32399aa0a25a2a08a172d1
-        renderScene={this.renderScene}
-=======
         renderScene={() => this.renderScene()}
->>>>>>> Fix linting errors
-=======
-        renderScene={this.renderScene}
->>>>>>> fix binding bug
         configureScene={() => Navigator.SceneConfigs.FloatFromRight}
       />
     );
