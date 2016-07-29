@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
-  View,
-  Navigator
+  Navigator,
 } from 'react-native';
 
 window.navigator.userAgent = 'react-native';
@@ -16,35 +14,17 @@ const ioConfig = {
 
 import Login from './login/login';
 import Map from './map/map';
+import Chatroom from './chat/chatroom';
+import Signup from './login/signup';
 
 const ROUTES = {
   login: Login,
   map: Map,
-}
+  chatroom: Chatroom,
+  signup: Signup,
+};
 
-export default class Crumbs extends Component {
-  constructor(props) {
-    super(props);
-    this.socket = io('http://localhost:3000', ioConfig);
-  }
-
-  renderScene(route, navigator) {
-    const Component = ROUTES[route.name];
-    return <Component route={route} navigator={navigator} />;
-  }
-
-  render() {
-    return (
-      <Navigator
-        style={ styles.container }
-        initialRoute={{name: 'map'}}
-        renderScene={this.renderScene}
-        configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; } }
-      />
-    );
-  }
-
-}
+const defaultRoute = 'map'; // adjust for testing
 
 const styles = StyleSheet.create({
   container: {
@@ -53,3 +33,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 });
+
+export default class Crumbs extends Component {
+  constructor(props) {
+    super(props);
+    this.socket = io('http://localhost:3000', ioConfig);
+    this.socket.emit('test from client');
+    this.renderScene = this.renderScene.bind(this);
+  }
+
+  renderScene(route, navigator) {
+    const Cponent = ROUTES[route.name];
+    return <Cponent route={route} navigator={navigator} socket={this.socket} />;
+  }
+
+  render() {
+    return (
+      <Navigator
+        style={styles.container}
+        initialRoute={{ name: defaultRoute }}
+        renderScene={this.renderScene}
+        configureScene={() => Navigator.SceneConfigs.FloatFromRight}
+      />
+    );
+  }
+}
