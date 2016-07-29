@@ -52,7 +52,7 @@ export default class Crumbs extends Component {
       <Navigator
         style={styles.container}
         initialRoute={{ name: defaultRoute }}
-        renderScene={() => this.renderScene()}
+        renderScene={this.renderScene}
         configureScene={() => Navigator.SceneConfigs.FloatFromRight}
       />
     );

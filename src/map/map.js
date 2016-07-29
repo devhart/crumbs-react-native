@@ -118,13 +118,6 @@ export default class Map extends Component {
 }
 
 Map.propTypes = {
-<<<<<<< b1641131502237c108a0f5eb9c89255a6ac64e7e
-<<<<<<< 6fccdab927eaedbddd32399aa0a25a2a08a172d1
-=======
-  title: PropTypes.string.isRequired,
->>>>>>> Fix linting errors
-=======
->>>>>>> fix binding bug
   navigator: PropTypes.object.isRequired,
   socket: PropTypes.object.isRequired,
 };
