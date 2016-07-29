@@ -98,5 +98,4 @@ module.exports = StyleSheet.create({
   touchable: {
     marginLeft: 15,
   },
-
 });
