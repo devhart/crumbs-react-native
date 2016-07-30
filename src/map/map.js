@@ -78,7 +78,7 @@ export default class Map extends Component {
 
   handleRoomCheck(response) {
     if (response.location === this.state.location) {
-      if (response.exists.room === true) {
+      if (response.exists === true) {
         this.setState({ joinRoom: true }); // this switches the button to 'Join Room'
       } else {
         this.setState({ joinRoom: false });
