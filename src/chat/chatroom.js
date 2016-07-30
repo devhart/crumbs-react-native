@@ -23,17 +23,23 @@ const log = (...args) => console.log(...args);
 export default class Chatroom extends Component {
   constructor(props) {
     super(props); // provides access to props.socket
-
+    // TODO: Refactor location and messagelist to be part of a Room
     this.state = {
       message: '',
       messageList: [],
-      location: '37.784-122.409',
+      location: null,
       username: 'default_user',
     };
 
-    this.props.socket.on('room:joined', updatedChatRoom => {
-      const messages = updatedChatRoom ? updatedChatRoom.messages : [];
+    this.props.socket.on('room:joined', result => {
+      const messages = result.room ? result.room.messages : [];
       this.setState({ messageList: messages });
+    });
+
+    this.props.socket.on('message:added', result => {
+      const messageList = this.state.messageList;
+      messageList.push(result.message);
+      this.setState({ messageList });
     });
   }
 
@@ -103,7 +109,6 @@ export default class Chatroom extends Component {
     return latStr + lngStr;
   }
 
-  // TODO: Get actual username
   emitAddMessageToChatRoom() {
     log(this.state.message);
     this.props.socket.emit('add:message', {
