@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableHighlight,
   Alert,
+  AsyncStorage,
 } from 'react-native';
 import styles from './chatroom.styles';
 import imgUrlDefault from './profileIcon.png';
@@ -45,13 +46,18 @@ export default class Chatroom extends Component {
       (position) => {
         const loc = this.createChatRoomId(position.coords);
         this.setState({ location: loc });
-        this.props.socket.emit('join:room', {
-          location: this.state.location,
-          username: this.state.username,
-        });
-        this.listenForGeoChange();
+        AsyncStorage.getItem(this.props.storage_key)
+          .then(username => {
+            this.state.username = username;
+            this.props.socket.emit('join:room', {
+              location: this.state.location,
+              username: this.state.username,
+            });
+            this.listenForGeoChange();
+          });
       });
   }
+
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
@@ -195,4 +201,5 @@ export default class Chatroom extends Component {
 Chatroom.propTypes = {
   navigator: PropTypes.object.isRequired,
   socket: PropTypes.object.isRequired,
+  storage_key: PropTypes.string,
 };
