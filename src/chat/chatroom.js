@@ -52,7 +52,6 @@ export default class Chatroom extends Component {
         this.listenForGeoChange();
       });
   }
-
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
